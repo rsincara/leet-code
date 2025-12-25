@@ -1,0 +1,16 @@
+{
+  "name": "leet-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "new": "node createNew.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "30.2.0"
+  }
+}
