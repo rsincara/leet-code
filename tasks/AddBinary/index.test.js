@@ -1,13 +1,13 @@
 const fn = require('./index');
 
 test('Test 1', () => {
-    expect(fn([1,2,3], 2)).toBe(4);
+    expect(fn('11', '1')).toBe('100');
 });
 
 test('Test 2', () => {
-    expect(fn([1,1,1,1], 2)).toBe(1);
+    expect(fn('1010', '1011')).toBe('10101');
 });
 
 test('Test 3', () => {
-    expect(fn([2,3,4,5], 1)).toBe(5);
+    expect(fn('')).toBe(1);
 });
