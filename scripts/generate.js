@@ -18,22 +18,22 @@ const res = await fetch('https://leetcode.com/graphql', {
     },
     body: JSON.stringify({
         query: `
-      query getQuestion($titleSlug: String!) {
-        question(titleSlug: $titleSlug) {
-          title
-          difficulty
-          codeSnippets {
-            lang
-            code
+          query getQuestion($titleSlug: String!) {
+            question(titleSlug: $titleSlug) {
+              title
+              difficulty
+              codeSnippets {
+                lang
+                code
+              }
+              exampleTestcases
+            }
           }
-          exampleTestcases
-        }
-      }
-    `,
+        `,
         variables: {
             titleSlug: slug,
         }
-    })
+    }),
 });
 
 const data = await res.json();
@@ -44,7 +44,7 @@ const taskTitle = title.replaceAll(' ', '');
 
 let jsSnippet = data.data.question.codeSnippets.find(
     s => s.lang === 'JavaScript'
-).code;
+).code.replace('var', 'const');
 
 const match = jsSnippet.match(
     /(var|let|const)\s+([a-zA-Z_$][\w$]*)\s*=/
@@ -58,13 +58,18 @@ jsSnippet += `\n\nmodule.exports = ${functionName};`;
 
 const testCases = data.data.question.exampleTestcases.split('\n');
 
-let testString = `const fn = require('./index');`;
+let testString = `const fn = require('./index');
+
+// Файл теста
+describe('Tests', () => {`;
 
 testCases.forEach((example, index) => {
-    testString += `\n\ntest('Test ${index + 1}', () => {
-    expect(fn(${example})).toBe(null);
-});`
+    testString += `\n\ttest('Test ${index + 1}', () => {
+    \texpect(fn(${example})).toBe(null);
+\t});\n`
 });
+
+testString += `});`
 
 createFolderAndIndex(newFolderPath, jsSnippet);
 createTests(newFolderPath, testString);
