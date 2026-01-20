@@ -60,7 +60,6 @@ const testCases = data.data.question.exampleTestcases.split('\n');
 
 let testString = `const fn = require('./index');
 
-// Файл теста
 describe('Tests', () => {`;
 
 testCases.forEach((example, index) => {
