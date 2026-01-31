@@ -42,7 +42,9 @@ const { difficulty, title } = data.data.question;
 
 const taskTitle = title.replaceAll(' ', '');
 
-let jsSnippet = data.data.question.codeSnippets.find(
+let jsSnippet = `const _ = require('lodash');\n\n`
+
+jsSnippet += data.data.question.codeSnippets.find(
     s => s.lang === 'JavaScript'
 ).code.replace('var', 'const');
 
