@@ -42,13 +42,14 @@ const { difficulty, title } = data.data.question;
 
 const taskTitle = title.replaceAll(' ', '');
 
-let jsSnippet = `const _ = require('lodash');\n\n`
+const lodashConnectingString = `const _ = require('lodash');\n\n`;
+let jsSnippet = lodashConnectingString;
 
 jsSnippet += data.data.question.codeSnippets.find(
     s => s.lang === 'JavaScript'
 ).code.replace('var', 'const');
 
-const match = jsSnippet.match(
+const match = jsSnippet.replace(lodashConnectingString, '').match(
     /(var|let|const)\s+([a-zA-Z_$][\w$]*)\s*=/
 );
 
